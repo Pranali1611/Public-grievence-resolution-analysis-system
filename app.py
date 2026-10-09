@@ -61,15 +61,71 @@ def get_logo_base64() -> str:
 
 LOGO_B64 = get_logo_base64()
 
-# Streamlit Page Config - strictly NO emojis
+# Streamlit Page Config - strictly NO emojis & SEO Optimized
 st.set_page_config(
-    page_title="Public Grievance Resolution Analysis System",
+    page_title="Public Grievance Resolution Analysis System | National Governance Analytics Portal",
     page_icon=str(LOGO_FILE) if LOGO_FILE.exists() else None,
     layout="wide",
     initial_sidebar_state="expanded",
+    menu_items={
+        "Get Help": "https://darpg.gov.in",
+        "Report a bug": "https://cpgrams.gov.in",
+        "About": """
+        ### Public Grievance Resolution Analysis System
+        Comprehensive monitoring and evaluation of public grievance receipts, disposals, and pending durations across Central Ministries, Departments, and State Administrations in India.
+        Reporting Period: 01 January 2016 to 01 November 2019.
+        """,
+    },
 )
 
-# Comprehensive Styling: Light Cream Theme, Almarai Typography, High Contrast, Responsive Controls
+# Injected SEO Head Meta Tags and JSON-LD Structured Data Schema
+SEO_HEAD_HTML = """
+<!-- Primary Meta Tags -->
+<title>Public Grievance Resolution Analysis System | National Governance Analytics Portal</title>
+<meta name="title" content="Public Grievance Resolution Analysis System | National Governance Analytics Portal">
+<meta name="description" content="Comprehensive analysis of public grievance receipts, disposals, and pending durations across Indian Central Ministries, Departments, and State Administrations (2016-2019 dataset).">
+<meta name="keywords" content="Public Grievance, Grievance Redressal, Central Ministries, State Administration, Disposal Rate, CP-GRAMS, Government Analytics India, Backlog Analysis">
+<meta name="author" content="Public Grievance Resolution Analysis System">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Public Grievance Resolution Analysis System | National Governance Portal">
+<meta property="og:description" content="Official analytical dashboard monitoring 4.7M+ public grievances, resolution efficiency, and backlog aging across 124 Indian Central Ministries and States.">
+<meta property="og:site_name" content="Public Grievance Analytics Portal">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Public Grievance Resolution Analysis System">
+<meta name="twitter:description" content="Official analytical dashboard monitoring 4.7M+ public grievances, resolution efficiency, and backlog aging across Central Ministries and States.">
+
+<!-- JSON-LD Structured Data Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GovernmentService",
+  "name": "Public Grievance Resolution Analysis System",
+  "alternateName": "Public Grievance Analytics Portal",
+  "description": "Comprehensive monitoring and evaluation of public grievance receipts, disposals, and pending durations across Central Ministries, Departments, and State Administrations.",
+  "serviceType": "Public Grievance Monitoring & Analytics",
+  "provider": {
+    "@type": "GovernmentOrganization",
+    "name": "Department of Administrative Reforms and Public Grievances (DARPG)"
+  },
+  "dataset": {
+    "@type": "Dataset",
+    "name": "Central Ministries & State Grievance Disposal Statistics",
+    "description": "Official dataset of grievance receipts, disposal counts, and pending duration brackets across 124 entities.",
+    "temporalCoverage": "2016-01-01/2019-11-01"
+  }
+}
+</script>
+"""
+
+st.markdown(SEO_HEAD_HTML, unsafe_allow_html=True)
+
+# Comprehensive Styling: Light Cream Theme, Almarai Typography, High Contrast, Fully Mobile-Responsive
 CUSTOM_CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -79,11 +135,14 @@ html, body, [class*="css"], .stApp {
     font-family: 'Almarai', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
     background-color: #FAF7F0 !important;
     color: #1A1816 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Main Container */
 .main .block-container {
-    padding-top: 1.4rem;
+    padding-top: 1.2rem;
     padding-bottom: 2.5rem;
     max-width: 1420px;
 }
@@ -94,6 +153,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700 !important;
     color: #1A1816 !important;
     letter-spacing: -0.015em;
+    margin-top: 0;
 }
 
 p, span, label, div {
@@ -105,18 +165,18 @@ p, span, label, div {
     background: #FFFFFF;
     border: 1px solid #E6DDCF;
     border-radius: 10px;
-    padding: 22px 28px;
-    margin-bottom: 18px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
     box-shadow: 0 3px 16px rgba(45, 38, 30, 0.04);
 }
 .portal-header-flex {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 20px;
 }
 .portal-logo-img {
-    width: 82px;
-    height: 82px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #D5C9B4;
@@ -125,29 +185,29 @@ p, span, label, div {
     flex-shrink: 0;
 }
 .portal-title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     color: #1A1816;
-    margin: 0 0 5px 0;
-    line-height: 1.2;
+    margin: 0 0 4px 0;
+    line-height: 1.25;
 }
 .portal-subtitle {
-    font-size: 14px;
+    font-size: 13.5px;
     color: #4D453A;
-    margin: 0;
+    margin: 0 0 6px 0;
     line-height: 1.5;
     font-weight: 500;
 }
 .portal-meta-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     background: #F3ECE0;
     color: #2D2721;
     font-size: 12px;
     font-weight: 700;
-    padding: 4px 13px;
+    padding: 4px 12px;
     border-radius: 16px;
     border: 1px solid #DCD0BC;
-    margin-top: 8px;
 }
 
 /* Hero Preset Bar Container */
@@ -156,16 +216,22 @@ p, span, label, div {
     border: 1px solid #E2D7C4;
     border-radius: 8px;
     padding: 14px 18px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     box-shadow: 0 2px 8px rgba(45, 38, 30, 0.03);
 }
 .hero-preset-title {
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #635A4E;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
+}
+.hero-preset-sub {
+    font-size: 12.5px;
+    color: #7A7063;
+    margin-bottom: 0px;
+    line-height: 1.4;
 }
 
 /* Active Scope Notification Banner */
@@ -175,13 +241,26 @@ p, span, label, div {
     border-left: 5px solid #1B5E43;
     border-radius: 6px;
     padding: 12px 18px;
-    margin-bottom: 20px;
+    margin-top: 14px;
+    margin-bottom: 18px;
     font-size: 13.5px;
     color: #1A1816;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     box-shadow: 0 2px 6px rgba(45, 38, 30, 0.03);
+}
+.active-scope-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1B5E43;
+    background: #E8F3ED;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid #C4DFD2;
+    white-space: nowrap;
 }
 
 /* Sidebar Brand Header */
@@ -223,11 +302,16 @@ p, span, label, div {
     background: #FFFFFF;
     border: 1px solid #E6DDCF;
     border-radius: 8px;
-    padding: 18px 22px;
+    padding: 18px 20px;
     box-shadow: 0 2px 10px rgba(45, 38, 30, 0.03);
     position: relative;
     overflow: hidden;
     margin-bottom: 16px;
+    min-height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 .custom-metric-card::before {
     content: "";
@@ -243,24 +327,27 @@ p, span, label, div {
 .card-amber::before { background: #C4822B; }
 
 .metric-label-text {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
-    color: #5A5247;
+    color: #635A4E;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    line-height: 1.2;
 }
 .metric-value-text {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     color: #1A1816;
-    line-height: 1.1;
+    line-height: 1.15;
     margin-bottom: 4px;
+    font-feature-settings: "tnum" 1;
 }
 .metric-sub-text {
     font-size: 12px;
-    color: #6C6255;
+    color: #5A5247;
     font-weight: 600;
+    line-height: 1.35;
 }
 
 /* Sidebar Customization */
@@ -285,7 +372,30 @@ p, span, label, div {
     font-weight: 600 !important;
 }
 
-/* Primary (Active) Button Styling - Deep Forest Emerald replacing dark blue */
+/* Unified Button Styling: Perfect Baseline Alignment and Uniform Dimensions */
+.stButton > button,
+button[data-testid="baseButton-primary"],
+button[data-testid="baseButton-secondary"],
+button[kind="primary"],
+button[kind="secondary"] {
+    min-height: 44px !important;
+    height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-family: 'Almarai', 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 13.5px !important;
+    line-height: 1.2 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 6px !important;
+    transition: all 0.15s ease-in-out !important;
+    padding: 8px 14px !important;
+}
+
+/* Primary (Active) Button Styling - Deep Forest Emerald */
 button[data-testid="baseButton-primary"],
 button[kind="primary"] {
     background-color: #1B5E43 !important;
@@ -293,13 +403,14 @@ button[kind="primary"] {
     border: 1px solid #134632 !important;
     font-weight: 800 !important;
     box-shadow: 0 2px 8px rgba(27, 94, 67, 0.25) !important;
-    border-radius: 6px !important;
 }
 button[data-testid="baseButton-primary"]:hover,
 button[kind="primary"]:hover {
     background-color: #144933 !important;
     border-color: #0E3626 !important;
     color: #FFFFFF !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(27, 94, 67, 0.3) !important;
 }
 button[data-testid="baseButton-primary"]:active,
 button[kind="primary"]:active {
@@ -315,11 +426,6 @@ button[kind="secondary"] {
     background-color: #FFFFFF !important;
     color: #1A1816 !important;
     border: 1px solid #D5C8B4 !important;
-    border-radius: 6px !important;
-    font-weight: 700 !important;
-    font-size: 13px !important;
-    padding: 8px 14px !important;
-    transition: all 0.15s ease-in-out !important;
     box-shadow: 0 1px 4px rgba(45, 38, 30, 0.04) !important;
 }
 button[data-testid="baseButton-secondary"]:hover,
@@ -337,32 +443,21 @@ button[kind="secondary"]:active {
     transform: translateY(0);
 }
 
-/* Dedicated Reset View Button Hover & Active Styling */
-.reset-btn-wrapper button {
-    transition: all 0.2s ease-in-out !important;
-}
-.reset-btn-wrapper button:hover {
-    background-color: #FBF0EB !important;
-    border-color: #DE9382 !important;
-    color: #A33520 !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 3px 10px rgba(163, 53, 32, 0.15) !important;
-}
-.reset-btn-wrapper button:active {
-    background-color: #B84A39 !important;
-    border-color: #993829 !important;
-    color: #FFFFFF !important;
-    transform: translateY(0) !important;
-}
-
 /* Download Buttons */
 .stDownloadButton > button {
+    min-height: 44px !important;
+    height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     background-color: #1B5E43 !important;
     color: #FFFFFF !important;
     border: 1px solid #134632 !important;
     border-radius: 6px !important;
     font-weight: 700 !important;
-    padding: 9px 18px !important;
+    padding: 8px 16px !important;
+    font-family: 'Almarai', sans-serif !important;
+    font-size: 13.5px !important;
 }
 .stDownloadButton > button:hover {
     background-color: #144933 !important;
@@ -383,7 +478,7 @@ div[data-baseweb="select"] * {
     color: #1A1816 !important;
 }
 
-/* Popover & Listbox options (styled globally at body level) */
+/* Popover & Listbox options */
 [data-baseweb="popover"],
 [data-baseweb="popover"] > div,
 [data-baseweb="menu"],
@@ -405,14 +500,12 @@ div[data-baseweb="select"] * {
     font-weight: 500 !important;
     padding: 10px 14px !important;
 }
-
 [data-baseweb="menu"] li:hover,
 [role="listbox"] li:hover,
 [role="option"]:hover {
     background-color: #F4ECE0 !important;
     color: #1A1816 !important;
 }
-
 [aria-selected="true"] {
     background-color: #EFE5D4 !important;
     color: #1A1816 !important;
@@ -465,29 +558,35 @@ div[data-baseweb="select"] * {
     color: #1A1816 !important;
 }
 
-/* Tabs */
+/* Tabs: Smooth Horizontal Scrolling for Full Mobile Responsiveness */
 div[data-testid="stTabs"] {
-    margin-top: 10px;
-    margin-bottom: 22px;
+    margin-top: 8px;
+    margin-bottom: 20px;
 }
 div[data-testid="stTabs"] [data-baseweb="tab-list"] {
     background-color: #F1E9DC;
     padding: 6px 8px;
     border-radius: 8px;
     border: 1px solid #E1D6C2;
-    gap: 8px;
+    gap: 6px;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
 }
 div[data-testid="stTabs"] button[role="tab"] {
     font-family: 'Almarai', sans-serif !important;
     font-weight: 600 !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     color: #4D453A !important;
     background-color: transparent !important;
     border: none !important;
     border-radius: 6px !important;
-    padding: 9px 20px !important;
+    padding: 9px 18px !important;
     transition: all 0.2s ease !important;
     cursor: pointer !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
 }
 div[data-testid="stTabs"] button[role="tab"]:hover {
     color: #1A1816 !important;
@@ -509,26 +608,28 @@ div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     background-color: #FFFFFF !important;
 }
 
-/* Analytical Card Containers */
-.analytical-card {
+/* Card Header Block (Self-contained, strictly valid DOM) */
+.card-header-block {
     background-color: #FFFFFF;
     border: 1px solid #E6DDCF;
     border-radius: 8px;
-    padding: 22px 24px;
-    margin-bottom: 22px;
-    box-shadow: 0 2px 10px rgba(45, 38, 30, 0.03);
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(45, 38, 30, 0.03);
 }
 .analytical-card-header {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 800;
     color: #1A1816;
     margin-bottom: 4px;
+    line-height: 1.25;
 }
 .analytical-card-sub {
     font-size: 13px;
     color: #635A4E;
-    margin-bottom: 16px;
+    margin-bottom: 0px;
     font-weight: 500;
+    line-height: 1.45;
 }
 
 /* Insights callout box */
@@ -537,8 +638,9 @@ div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     border: 1px solid #E2D7C2;
     border-left: 4px solid #2A6F55;
     border-radius: 6px;
-    padding: 18px 22px;
+    padding: 16px 20px;
     margin-top: 14px;
+    margin-bottom: 16px;
 }
 .insights-box ul {
     margin: 0;
@@ -547,22 +649,8 @@ div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
 }
 .insights-box li {
     margin-bottom: 8px;
-    line-height: 1.55;
+    line-height: 1.6;
     font-size: 13.5px;
-}
-
-/* Danger Button Styling (for Delete Operations) */
-.danger-btn-wrapper button {
-    background-color: #B84A39 !important;
-    border: 1px solid #9E3C2E !important;
-    color: #FFFFFF !important;
-    font-weight: 700 !important;
-    border-radius: 6px !important;
-}
-.danger-btn-wrapper button:hover {
-    background-color: #9E3C2E !important;
-    border-color: #822F23 !important;
-    color: #FFFFFF !important;
 }
 
 /* Operation Status Banners */
@@ -572,7 +660,7 @@ div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     border-left: 5px solid #1B5E43;
     border-radius: 6px;
     padding: 12px 18px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 13.5px;
     color: #0E3626;
     font-weight: 600;
@@ -584,7 +672,7 @@ div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     border-left: 5px solid #C4822B;
     border-radius: 6px;
     padding: 12px 18px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 13.5px;
     color: #633C06;
     font-weight: 600;
@@ -595,7 +683,7 @@ div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     border-left: 5px solid #B84A39;
     border-radius: 6px;
     padding: 12px 18px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 13.5px;
     color: #722013;
     font-weight: 600;
@@ -630,11 +718,12 @@ div[data-testid="stFileUploader"] section:hover {
 
 /* Data Studio Sub-Card */
 .data-mgmt-card {
-    background: #FDFBF7;
+    background: #FFFFFF;
     border: 1px solid #E2D7C2;
     border-radius: 8px;
     padding: 18px 22px;
     margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(45, 38, 30, 0.03);
 }
 .data-mgmt-card-title {
     font-size: 16px;
@@ -670,17 +759,17 @@ div[data-testid="stFileUploader"] section:hover {
     margin-top: 2px;
 }
 
-/* Filter Panel Card (Reference-style top filter section) */
+/* Filter Panel Card */
 .filter-panel-card {
     background-color: #FFFFFF;
     border: 1px solid #E2D7C4;
     border-radius: 8px;
-    padding: 18px 22px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(45, 38, 30, 0.03);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(45, 38, 30, 0.03);
 }
 .filter-panel-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
     color: #1A1816;
     margin-bottom: 4px;
@@ -688,10 +777,135 @@ div[data-testid="stFileUploader"] section:hover {
     letter-spacing: 0.04em;
 }
 .filter-panel-sub {
-    font-size: 13px;
+    font-size: 12.5px;
     color: #635A4E;
-    margin-bottom: 16px;
-    line-height: 1.5;
+    margin-bottom: 0px;
+    line-height: 1.45;
+}
+
+/* ------------------------------------------------------------- */
+/* RESPONSIVE MEDIA QUERIES FOR MOBILE AND TABLET SCREENS         */
+/* ------------------------------------------------------------- */
+
+/* Tablet Screens (<= 992px) */
+@media (max-width: 992px) {
+    .main .block-container {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    .portal-header {
+        padding: 16px 18px;
+    }
+    .portal-title {
+        font-size: 22px;
+    }
+    .metric-value-text {
+        font-size: 24px;
+    }
+}
+
+/* Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+    .main .block-container {
+        padding-top: 0.8rem;
+        padding-bottom: 1.5rem;
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+    }
+    .portal-header {
+        padding: 14px 16px;
+        margin-bottom: 12px;
+    }
+    .portal-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .portal-logo-img {
+        width: 56px;
+        height: 56px;
+    }
+    .portal-title {
+        font-size: 20px;
+        line-height: 1.25;
+    }
+    .portal-subtitle {
+        font-size: 12.5px;
+        line-height: 1.45;
+    }
+    .portal-meta-badge {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+    .hero-preset-container {
+        padding: 12px 14px;
+    }
+    .active-scope-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 14px;
+        font-size: 12.5px;
+    }
+    .custom-metric-card {
+        padding: 14px 16px;
+        min-height: auto;
+        margin-bottom: 12px;
+    }
+    .metric-value-text {
+        font-size: 22px;
+    }
+    .metric-label-text {
+        font-size: 11px;
+    }
+    .metric-sub-text {
+        font-size: 11.5px;
+    }
+    div[data-testid="stTabs"] [data-baseweb="tab-list"] {
+        gap: 4px;
+        padding: 4px;
+    }
+    div[data-testid="stTabs"] button[role="tab"] {
+        font-size: 12.5px !important;
+        padding: 7px 12px !important;
+    }
+    .stButton > button,
+    button[data-testid="baseButton-primary"],
+    button[data-testid="baseButton-secondary"] {
+        font-size: 12.5px !important;
+        min-height: 40px !important;
+        height: 40px !important;
+        padding: 6px 10px !important;
+    }
+    .analytical-card-header {
+        font-size: 15.5px;
+    }
+    .analytical-card-sub {
+        font-size: 12px;
+    }
+    .insights-box {
+        padding: 12px 14px;
+        font-size: 12.5px;
+    }
+    .insights-box li {
+        font-size: 12.5px;
+        margin-bottom: 6px;
+    }
+}
+
+/* Small Handhelds (<= 480px) */
+@media (max-width: 480px) {
+    .portal-title {
+        font-size: 18px;
+    }
+    .metric-value-text {
+        font-size: 20px;
+    }
+    .stButton > button {
+        font-size: 12px !important;
+    }
 }
 </style>
 """
@@ -807,16 +1021,15 @@ with st.sidebar:
     st.markdown("**Quick Preset Views**")
     p_col1, p_col2 = st.columns(2)
     with p_col1:
-        st.markdown('<div class="reset-btn-wrapper">', unsafe_allow_html=True)
         st.button(
-            "Reset View",
+            "National Overview",
             type="primary" if st.session_state["active_preset"] == "all" and not st.session_state.get("dept_filter") else "secondary",
             on_click=set_preset,
             args=("all",),
             key="sb_btn_reset",
             width="stretch",
+            help="Show all 124 departments (National Overview)",
         )
-        st.markdown('</div>', unsafe_allow_html=True)
     with p_col2:
         st.button(
             "Top Backlog",
@@ -825,6 +1038,7 @@ with st.sidebar:
             args=("top_backlog",),
             key="sb_btn_backlog",
             width="stretch",
+            help="Show top departments by pending backlog",
         )
 
     p_col3, p_col4 = st.columns(2)
@@ -836,6 +1050,7 @@ with st.sidebar:
             args=("top_volume",),
             key="sb_btn_volume",
             width="stretch",
+            help="Show top departments by grievance volume",
         )
     with p_col4:
         st.button(
@@ -845,6 +1060,7 @@ with st.sidebar:
             args=("top_disposal",),
             key="sb_btn_disposal",
             width="stretch",
+            help="Show top departments by disposal rate",
         )
 
     st.markdown("---")
@@ -937,9 +1153,9 @@ pct_of_nat_pending = (scope_pending / NAT_PENDING * 100) if NAT_PENDING > 0 else
 pct_of_nat_receipts = (scope_received / NAT_RECEIVED * 100) if NAT_RECEIVED > 0 else 0.0
 
 
-# Header Section with Generated Logo
+# Header Section with Generated Logo and Semantic SEO H1
 logo_html_snippet = (
-    f'<img src="data:image/jpeg;base64,{LOGO_B64}" class="portal-logo-img" alt="Emblem" />'
+    f'<img src="data:image/jpeg;base64,{LOGO_B64}" class="portal-logo-img" alt="Government Emblem - Public Grievance Resolution Analysis System" />'
     if LOGO_B64
     else ""
 )
@@ -950,10 +1166,10 @@ st.markdown(
         <div class="portal-header-flex">
             {logo_html_snippet}
             <div style="flex: 1;">
-                <div class="portal-title">Public Grievance Resolution Analysis System</div>
-                <div class="portal-subtitle">
+                <h1 class="portal-title">Public Grievance Resolution Analysis System</h1>
+                <p class="portal-subtitle">
                     Comprehensive Analysis of Public Grievance Receipts, Disposals, and Pending Durations Across Central Ministries, Departments, and State Administrations
-                </div>
+                </p>
                 <div class="portal-meta-badge">
                     Reporting Period: 01 January 2016 to 01 November 2019 &nbsp;|&nbsp; Official Government Dataset
                 </div>
@@ -964,56 +1180,58 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Hero Quick Preset Buttons
+# Hero Quick Preset Buttons - Clean, Balanced & Vertically Aligned
 st.markdown(
     """
     <div class="hero-preset-container">
         <div class="hero-preset-title">Active Analytics Views & Quick Filters</div>
+        <div class="hero-preset-sub">Instantly filter and synchronize all charts, metrics, rankings, and deep-dive tables:</div>
+    </div>
     """,
     unsafe_allow_html=True,
 )
 
 h_col1, h_col2, h_col3, h_col4 = st.columns(4)
 with h_col1:
-    st.markdown('<div class="reset-btn-wrapper">', unsafe_allow_html=True)
     st.button(
-        "Reset View",
+        "National Overview",
         type="primary" if active_preset == "all" and not selected_departments else "secondary",
         on_click=set_preset,
         args=("all",),
         key="hero_btn_all",
         width="stretch",
+        help="View all 124 ministries and states nationwide (Reset active filters)",
     )
-    st.markdown('</div>', unsafe_allow_html=True)
 with h_col2:
     st.button(
-        "Top Backlog Focus",
+        "Top Backlog",
         type="primary" if active_preset == "top_backlog" or current_sort == "Pending Backlog" else "secondary",
         on_click=set_preset,
         args=("top_backlog",),
         key="hero_btn_backlog",
         width="stretch",
+        help="Focus on departments with the largest volume of unresolved grievances",
     )
 with h_col3:
     st.button(
-        "Top Volume Focus",
+        "Top Volume",
         type="primary" if active_preset == "top_volume" else "secondary",
         on_click=set_preset,
         args=("top_volume",),
         key="hero_btn_volume",
         width="stretch",
+        help="Focus on departments handling the highest total incoming grievance volume",
     )
 with h_col4:
     st.button(
-        "Top Disposal Focus",
+        "Top Disposal",
         type="primary" if active_preset == "top_disposal" or current_sort == "Disposal Rate" else "secondary",
         on_click=set_preset,
         args=("top_disposal",),
         key="hero_btn_disposal",
         width="stretch",
+        help="Focus on departments with the highest resolution efficiency percentage",
     )
-
-st.markdown("</div>", unsafe_allow_html=True)
 
 # Active Scope Notification Banner
 scope_context_msg = (
@@ -1026,7 +1244,7 @@ st.markdown(
     f"""
     <div class="active-scope-banner">
         <div>{scope_context_msg}</div>
-        <div style="font-size: 12px; font-weight: 700; color: #1B5E43;">
+        <div class="active-scope-badge">
             Showing {len(active_scope_df)} Departments
         </div>
     </div>
@@ -1120,13 +1338,14 @@ tab_overview, tab_exploration, tab_performance, tab_pending, tab_explorer, tab_r
 )
 
 # Shared Plotly theme styling helper with high contrast and readable margins
-def apply_cream_chart_theme(fig, height=500, left_margin=230):
+def apply_cream_chart_theme(fig, height=500, left_margin=200):
     fig.update_layout(
         height=height,
         font=dict(family="Almarai, sans-serif", color="#1A1816", size=12),
         paper_bgcolor="#FAF7F0",
         plot_bgcolor="#FFFFFF",
         margin=dict(l=left_margin, r=25, t=30, b=30),
+        autosize=True,
         legend=dict(
             font=dict(color="#1A1816", size=12),
             bgcolor="rgba(255,255,255,0.9)",
@@ -1135,6 +1354,7 @@ def apply_cream_chart_theme(fig, height=500, left_margin=230):
         ),
     )
     fig.update_xaxes(
+        automargin=True,
         showgrid=True,
         gridcolor="#EFE8DC",
         zerolinecolor="#DDD2BF",
@@ -1142,6 +1362,7 @@ def apply_cream_chart_theme(fig, height=500, left_margin=230):
         title_font=dict(color="#1A1816", size=12, family="Almarai"),
     )
     fig.update_yaxes(
+        automargin=True,
         showgrid=False,
         tickfont=dict(color="#1A1816", size=11),
         title_font=dict(color="#1A1816", size=12, family="Almarai"),
@@ -1262,23 +1483,24 @@ with tab_overview:
 
         st.markdown(
             f"""
-            <div class="analytical-card">
+            <div class="card-header-block">
                 <div class="analytical-card-header">{chart_header_title}</div>
                 <div class="analytical-card-sub">{chart_header_sub}</div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
 
-        apply_cream_chart_theme(fig_overview_left, height=max(480, top_n * 34), left_margin=230)
+        apply_cream_chart_theme(fig_overview_left, height=max(480, top_n * 34), left_margin=200)
         st.plotly_chart(fig_overview_left, width="stretch")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with col_right:
         st.markdown(
             """
-            <div class="analytical-card">
+            <div class="card-header-block">
                 <div class="analytical-card-header">Pending Grievances by Duration</div>
                 <div class="analytical-card-sub">Backlog distribution across elapsed duration brackets for active view</div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -1315,7 +1537,6 @@ with tab_overview:
         apply_cream_chart_theme(fig_duration, height=max(480, top_n * 34), left_margin=140)
         fig_duration.update_xaxes(showgrid=True)
         st.plotly_chart(fig_duration, width="stretch")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     # Dynamic Key Analytical Findings
     top_backlog_share = (
@@ -1328,7 +1549,7 @@ with tab_overview:
     )
     st.markdown(
         f"""
-        <div class="analytical-card">
+        <div class="card-header-block">
             <div class="analytical-card-header">Key Analytical Findings</div>
             <div class="analytical-card-sub">Official governance insights derived from grievance reporting data</div>
             <div class="insights-box">
@@ -1357,6 +1578,7 @@ with tab_exploration:
                 Filter grievance records by administrative category, specific department, resolution efficiency, or backlog scale. 
                 Selecting any specific department isolates its data across the table, KPI metrics, and duration distribution.
             </div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
@@ -1467,9 +1689,7 @@ with tab_exploration:
 
     btn_exp_c1, btn_exp_c2 = st.columns([1.2, 4.0])
     with btn_exp_c1:
-        st.markdown('<div class="reset-btn-wrapper">', unsafe_allow_html=True)
         st.button("Clear All Filters", on_click=reset_exp_filters, key="btn_clear_exploration_filters", width="stretch")
-        st.markdown('</div>', unsafe_allow_html=True)
 
     with btn_exp_c2:
         if len(exp_filtered_df) == len(data):
@@ -1483,8 +1703,6 @@ with tab_exploration:
             if sel_volume != "All Volume Scales": active_filter_names.append(sel_volume)
             if sel_aging != "All Aging Brackets": active_filter_names.append(sel_aging)
             st.caption(f"Active records subset: {len(exp_filtered_df)} of {len(data)} departments | Filter: {', '.join(active_filter_names)}")
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # 4 KPI Summary Metric Cards (Calculated dynamically for filtered subset)
     exp_count = len(exp_filtered_df)
@@ -1554,9 +1772,10 @@ with tab_exploration:
     with col_left_tbl:
         st.markdown(
             """
-            <div class="analytical-card">
+            <div class="card-header-block">
                 <div class="analytical-card-header">Departmental Records Explorer</div>
                 <div class="analytical-card-sub">Exact grievance statistics for matching entities. Filtered records only.</div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -1612,14 +1831,14 @@ with tab_exploration:
                 COL_RATE: st.column_config.NumberColumn("Disposal Rate", format="%.2f%%"),
             },
         )
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with col_right_vis:
         st.markdown(
             """
-            <div class="analytical-card">
+            <div class="card-header-block">
                 <div class="analytical-card-header">Distribution Overview</div>
                 <div class="analytical-card-sub">Backlog Aging and Resolution Breakdown for Active Selection</div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -1721,8 +1940,6 @@ with tab_exploration:
             unsafe_allow_html=True,
         )
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
 
 # -----------------------------------------------------------------------------
 # TAB 3: DEPARTMENT PERFORMANCE
@@ -1730,9 +1947,10 @@ with tab_exploration:
 with tab_performance:
     st.markdown(
         """
-        <div class="analytical-card">
+        <div class="card-header-block">
             <div class="analytical-card-header">Department Efficiency and Disposal Rate Analysis</div>
-            <div class="analytical-card-sub">Disposal Rate = (Total Disposed / Total Received) × 100. Higher percentage indicates greater resolution capacity.</div>
+            <div class="analytical-card-sub">Disposal Rate = (Total Disposed / Total Received) &times; 100. Higher percentage indicates greater resolution capacity.</div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
@@ -1781,7 +1999,7 @@ with tab_performance:
             tickfont=dict(color="#1A1816", size=10),
         )
     )
-    apply_cream_chart_theme(fig_rate, height=max(420, top_n * 34), left_margin=230)
+    apply_cream_chart_theme(fig_rate, height=max(420, top_n * 34), left_margin=200)
     st.plotly_chart(fig_rate, width="stretch")
 
     st.markdown("#### Complete Performance Table")
@@ -1800,7 +2018,6 @@ with tab_performance:
             COL_RATE: st.column_config.NumberColumn("Disposal Rate", format="%.2f%%"),
         },
     )
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # -----------------------------------------------------------------------------
@@ -1809,9 +2026,10 @@ with tab_performance:
 with tab_pending:
     st.markdown(
         """
-        <div class="analytical-card">
+        <div class="card-header-block">
             <div class="analytical-card-header">Unresolved Grievances by Department and Duration</div>
             <div class="analytical-card-sub">Identification of departments with the largest backlogs and aging profiles</div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
@@ -1844,7 +2062,7 @@ with tab_pending:
             tickfont=dict(color="#1A1816", size=10),
         )
     )
-    apply_cream_chart_theme(fig_backlog, height=max(420, top_n * 34), left_margin=230)
+    apply_cream_chart_theme(fig_backlog, height=max(420, top_n * 34), left_margin=200)
     st.plotly_chart(fig_backlog, width="stretch")
 
     st.markdown("#### Stacked Duration Breakdown (Top Backlog Departments)")
@@ -1878,7 +2096,7 @@ with tab_pending:
         },
         labels={COL_NAME: "", "Pending Count": "Grievance Count"},
     )
-    apply_cream_chart_theme(fig_stacked, height=max(420, top_n * 34), left_margin=230)
+    apply_cream_chart_theme(fig_stacked, height=max(420, top_n * 34), left_margin=200)
     st.plotly_chart(fig_stacked, width="stretch")
 
     st.markdown("#### Detailed Pending Breakdown Table")
@@ -1899,7 +2117,6 @@ with tab_pending:
             DURATION_COLS[3]: st.column_config.NumberColumn("< 2 Months", format="%d"),
         },
     )
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # -----------------------------------------------------------------------------
@@ -1908,9 +2125,10 @@ with tab_pending:
 with tab_explorer:
     st.markdown(
         """
-        <div class="analytical-card">
+        <div class="card-header-block">
             <div class="analytical-card-header">Single Department Deep-Dive</div>
             <div class="analytical-card-sub">Select any Ministry, Department, or State to inspect individual metrics and duration composition</div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
@@ -2027,8 +2245,6 @@ with tab_explorer:
             unsafe_allow_html=True,
         )
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
 # -----------------------------------------------------------------------------
 # TAB 5: COMPREHENSIVE DATA RECORDS & MANAGEMENT STUDIO
 # -----------------------------------------------------------------------------
@@ -2046,12 +2262,13 @@ with tab_records:
 
     st.markdown(
         """
-        <div class="analytical-card">
+        <div class="card-header-block">
             <div class="analytical-card-header">Departmental Grievance Data Studio & Master Records</div>
             <div class="analytical-card-sub">
                 Explore master data records, export customized reports, or modify the dataset in real time. 
                 Any department added, modified, or removed immediately synchronizes across all analytical charts, rankings, and KPI metrics.
             </div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
@@ -2177,12 +2394,13 @@ with tab_records:
     with sub_tab_add:
         st.markdown(
             """
-            <div class="data-mgmt-card">
-                <div class="data-mgmt-card-title">Register New Administrative Entity</div>
-                <div class="data-mgmt-card-sub">
+            <div class="card-header-block">
+                <div class="analytical-card-header">Register New Administrative Entity</div>
+                <div class="analytical-card-sub">
                     Add a newly reporting Ministry, Department, or State. The record is permanently saved to the CSV dataset 
                     and all dashboard charts, Pareto distributions, and rankings instantly reflect the new data.
                 </div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -2261,18 +2479,17 @@ with tab_records:
                     st.session_state["data_action_status"] = f"Department '{clean_name}' successfully added! Total reporting departments is now {len(updated_dataset)}."
                     st.rerun()
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
     # SUB-TAB 3: EDIT EXISTING RECORD
     with sub_tab_edit:
         st.markdown(
             """
-            <div class="data-mgmt-card">
-                <div class="data-mgmt-card-title">Modify Existing Department Statistics</div>
-                <div class="data-mgmt-card-sub">
+            <div class="card-header-block">
+                <div class="analytical-card-header">Modify Existing Department Statistics</div>
+                <div class="analytical-card-sub">
                     Select any Ministry or Department to update its receipt, disposal, or pending breakdown figures. 
                     Changes are committed directly to disk and update all visualizations immediately.
                 </div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -2359,18 +2576,17 @@ with tab_records:
                             st.session_state["data_action_status"] = f"Department '{clean_upd_name}' updated successfully. All graphs reflect the updated figures."
                             st.rerun()
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
     # SUB-TAB 4: REMOVE DEPARTMENT
     with sub_tab_remove:
         st.markdown(
             """
-            <div class="data-mgmt-card">
-                <div class="data-mgmt-card-title">Remove Administrative Entity</div>
-                <div class="data-mgmt-card-sub">
+            <div class="card-header-block">
+                <div class="analytical-card-header">Remove Administrative Entity</div>
+                <div class="analytical-card-sub">
                     Select a department or state to permanently remove from the active dataset. 
                     All national totals, benchmarks, and departmental rankings will immediately recalculate for the remaining entities.
                 </div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -2407,28 +2623,25 @@ with tab_records:
                     unsafe_allow_html=True,
                 )
 
-                st.markdown('<div class="danger-btn-wrapper">', unsafe_allow_html=True)
-                if st.button(f"Permanently Delete '{del_selected_dept}'", key="btn_confirm_delete"):
+                if st.button(f"Permanently Delete '{del_selected_dept}'", key="btn_confirm_delete", type="primary"):
                     updated_dataset = data[data[COL_NAME] != del_selected_dept].copy()
                     if save_dataset_to_csv(updated_dataset):
                         if "dept_filter" in st.session_state and del_selected_dept in st.session_state["dept_filter"]:
                             st.session_state["dept_filter"].remove(del_selected_dept)
                         st.session_state["data_action_status"] = f"Department '{del_selected_dept}' was permanently deleted. Remaining departments: {len(updated_dataset)}."
                         st.rerun()
-                st.markdown('</div>', unsafe_allow_html=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
     # SUB-TAB 5: UPLOAD CSV DATASET
     with sub_tab_upload:
         st.markdown(
             """
-            <div class="data-mgmt-card">
-                <div class="data-mgmt-card-title">Upload Replacement CSV Dataset</div>
-                <div class="data-mgmt-card-sub">
+            <div class="card-header-block">
+                <div class="analytical-card-header">Upload Replacement CSV Dataset</div>
+                <div class="analytical-card-sub">
                     Upload a complete CSV file to replace or update the active dataset. 
                     The uploaded CSV must include the standard 8 columns. Before applying, the system verifies the schema and provides a preview.
                 </div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -2489,18 +2702,17 @@ with tab_records:
             except Exception as e:
                 st.error(f"Error reading uploaded CSV file: {e}")
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
     # SUB-TAB 6: BACKUP & RESTORE
     with sub_tab_backup:
         st.markdown(
             """
-            <div class="data-mgmt-card">
-                <div class="data-mgmt-card-title">Dataset Backup and Master Baseline Restore</div>
-                <div class="data-mgmt-card-sub">
+            <div class="card-header-block">
+                <div class="analytical-card-header">Dataset Backup and Master Baseline Restore</div>
+                <div class="analytical-card-sub">
                     The portal maintains an immutable master backup of the official 124-department government report. 
                     If you have added, edited, or removed data and wish to return to the original dataset, you can reset anytime with one click.
                 </div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -2550,7 +2762,3 @@ with tab_records:
                     mime="text/csv",
                     key="btn_dl_golden",
                 )
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
