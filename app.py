@@ -2273,7 +2273,7 @@ with tab_records:
         unsafe_allow_html=True,
     )
 
-    sub_tab_browse, sub_tab_add, sub_tab_edit, sub_tab_delete, sub_tab_upload, sub_tab_backup = st.tabs(
+    sub_tab_browse, sub_tab_add, sub_tab_edit, sub_tab_remove, sub_tab_upload, sub_tab_backup = st.tabs(
         [
             "Master Records Table",
             "Add New Department",
