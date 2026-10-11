@@ -78,52 +78,8 @@ st.set_page_config(
     },
 )
 
-# Injected SEO Head Meta Tags and JSON-LD Structured Data Schema
-SEO_HEAD_HTML = """
-<!-- Primary Meta Tags -->
-<title>Public Grievance Resolution Analysis System | National Governance Analytics Portal</title>
-<meta name="title" content="Public Grievance Resolution Analysis System | National Governance Analytics Portal">
-<meta name="description" content="Comprehensive analysis of public grievance receipts, disposals, and pending durations across Indian Central Ministries, Departments, and State Administrations (2016-2019 dataset).">
-<meta name="keywords" content="Public Grievance, Grievance Redressal, Central Ministries, State Administration, Disposal Rate, CP-GRAMS, Government Analytics India, Backlog Analysis">
-<meta name="author" content="Public Grievance Resolution Analysis System">
-<meta name="robots" content="index, follow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Public Grievance Resolution Analysis System | National Governance Portal">
-<meta property="og:description" content="Official analytical dashboard monitoring 4.7M+ public grievances, resolution efficiency, and backlog aging across 124 Indian Central Ministries and States.">
-<meta property="og:site_name" content="Public Grievance Analytics Portal">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Public Grievance Resolution Analysis System">
-<meta name="twitter:description" content="Official analytical dashboard monitoring 4.7M+ public grievances, resolution efficiency, and backlog aging across Central Ministries and States.">
-
-<!-- JSON-LD Structured Data Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "GovernmentService",
-  "name": "Public Grievance Resolution Analysis System",
-  "alternateName": "Public Grievance Analytics Portal",
-  "description": "Comprehensive monitoring and evaluation of public grievance receipts, disposals, and pending durations across Central Ministries, Departments, and State Administrations.",
-  "serviceType": "Public Grievance Monitoring & Analytics",
-  "provider": {
-    "@type": "GovernmentOrganization",
-    "name": "Department of Administrative Reforms and Public Grievances (DARPG)"
-  },
-  "dataset": {
-    "@type": "Dataset",
-    "name": "Central Ministries & State Grievance Disposal Statistics",
-    "description": "Official dataset of grievance receipts, disposal counts, and pending duration brackets across 124 entities.",
-    "temporalCoverage": "2016-01-01/2019-11-01"
-  }
-}
-</script>
-"""
-
-st.markdown(SEO_HEAD_HTML, unsafe_allow_html=True)
 
 # Comprehensive Styling: Light Cream Theme, Almarai Typography, High Contrast, Fully Mobile-Responsive
 CUSTOM_CSS = """
